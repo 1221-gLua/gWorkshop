@@ -23,9 +23,14 @@ do
 end
 
 local queue
-local HasValue = table.HasValue
 
 do
+    local HasValue = table.HasValue
+    local DownloadUGC = steamworks.DownloadUGC
+    local MountAddon = game.MountGMA
+    local ipairs = ipairs
+    local next = next
+    
     local WaitForDownload = (buffer.WaitForDownload == true)
     buffer.WaitForDownload = nil
 
@@ -42,7 +47,7 @@ do
             timer.Remove('gworkshop.WaitForDownload')
 
             for _, path in next, queue do
-                game.MountGMA(path)
+                MountAddon(path)
             end
 
             queue = nil
@@ -53,11 +58,11 @@ do
     end
 
     for _, workshop_id in ipairs(buffer) do
-        steamworks.DownloadUGC(workshop_id, function(path)
+        DownloadUGC(workshop_id, function(path)
             if WaitForDownload then
                 queue[workshop_id] = path
             else
-                game.MountGMA(path)
+                MountAddon(path)
             end
         end)
     end
