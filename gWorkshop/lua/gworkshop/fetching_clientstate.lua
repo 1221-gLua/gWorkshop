@@ -22,9 +22,8 @@ do
     end
 end
 
-local queue
-
 do
+    local queue
     local HasValue = table.HasValue
     local DownloadUGC = steamworks.DownloadUGC
     local MountAddon = game.MountGMA
